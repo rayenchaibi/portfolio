@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rayen Chaibi — Embedded Systems & Robotics</title>
+<meta name="description" content="Rayen Chaibi — Computer Systems Engineering student at MEDTECH, Tunis. Embedded systems, robotics, control and computer vision.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f14; --bg2:#111821; --card:#141c26; --line:#223040;
+    --text:#e6edf3; --muted:#8b9bb0; --accent:#38d39f; --accent2:#4aa3ff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:48px 48px;background-attachment:fixed}
+  body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at top,transparent 0%,var(--bg) 70%);pointer-events:none;z-index:-1}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .mono{font-family:"JetBrains Mono",monospace}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);background:rgba(11,15,20,.75);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{font-family:"Space Grotesk";font-weight:700;font-size:1.1rem}
+  .logo span{color:var(--accent)}
+  .links{display:flex;gap:22px;font-size:.9rem;color:var(--muted)}
+  .links a:hover,.links a.active{color:var(--accent)}
+  .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.4rem;cursor:pointer}
+
+  /* hero */
+  .hero{padding:110px 0 90px}
+  .tag{color:var(--accent);font-size:.9rem;margin-bottom:14px}
+  h1{font-family:"Space Grotesk";font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.05;letter-spacing:-.02em}
+  h1 .grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--muted);max-width:620px;margin:22px 0 32px;font-size:1.08rem}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{padding:12px 20px;border-radius:10px;font-weight:600;font-size:.95rem;border:1px solid var(--line);transition:.2s}
+  .btn.primary{background:var(--accent);color:#04130d;border-color:var(--accent)}
+  .btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+  .status{display:inline-flex;align-items:center;gap:8px;margin-top:34px;font-size:.85rem;color:var(--muted)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--accent);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(56,211,159,.6)}70%{box-shadow:0 0 0 10px rgba(56,211,159,0)}100%{box-shadow:0 0 0 0 rgba(56,211,159,0)}}
+
+  /* sections */
+  section{padding:70px 0}
+  .head{display:flex;align-items:baseline;gap:14px;margin-bottom:34px}
+  .head .num{color:var(--accent);font-size:.9rem}
+  h2{font-family:"Space Grotesk";font-size:1.9rem}
+  .head::after{content:"";flex:1;height:1px;background:var(--line);margin-left:10px;transform:translateY(-6px)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;transition:.25s}
+  .card:hover{border-color:rgba(56,211,159,.5);transform:translateY(-3px)}
+
+  .about{display:grid;grid-template-columns:1.6fr 1fr;gap:28px}
+  .about p{color:var(--muted);margin-bottom:14px}
+  .about p strong{color:var(--text);font-weight:600}
+  .facts li{list-style:none;display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line);font-size:.92rem}
+  .facts li span:first-child{color:var(--muted)}
+
+  /* experience */
+  .xp{display:grid;grid-template-columns:180px 1fr;gap:24px}
+  .xp .date{color:var(--accent);font-size:.85rem;padding-top:4px}
+  .xp h3{font-size:1.15rem;margin-bottom:4px}
+  .xp .org{color:var(--accent2);font-size:.95rem;margin-bottom:12px}
+  .xp p{color:var(--muted)}
+
+  /* projects */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+  .proj{display:flex;flex-direction:column}
+  .proj .kind{font-size:.75rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+  .proj h3{font-family:"Space Grotesk";font-size:1.2rem;margin-bottom:10px}
+  .proj p{color:var(--muted);font-size:.93rem;flex:1}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .chip{font-family:"JetBrains Mono";font-size:.72rem;padding:4px 9px;border-radius:6px;background:var(--bg2);border:1px solid var(--line);color:var(--muted)}
+  .proj.featured{grid-column:span 2}
+  .badge{display:inline-block;margin-top:12px;font-size:.78rem;color:#ffd166}
+
+  /* skills */
+  .skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+  .skills h3{font-size:1rem;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .skills h3::before{content:"▸";color:var(--accent)}
+
+  /* timeline */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .tl li{list-style:none;position:relative;padding:0 0 22px 24px;border-left:1px solid var(--line)}
+  .tl li::before{content:"";position:absolute;left:-5px;top:7px;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+  .tl li:last-child{padding-bottom:0}
+  .tl strong{display:block}
+  .tl span{color:var(--muted);font-size:.9rem}
+  h3.sub{font-family:"Space Grotesk";font-size:1.2rem;margin-bottom:20px}
+
+  /* contact */
+  .contact{text-align:center;padding:90px 0 110px}
+  .contact h2{font-size:2.4rem;margin-bottom:14px}
+  .contact p{color:var(--muted);max-width:520px;margin:0 auto 30px}
+  footer{border-top:1px solid var(--line);padding:24px 0;text-align:center;color:var(--muted);font-size:.82rem}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:820px){
+    .about,.two,.xp{grid-template-columns:1fr}
+    .proj.featured{grid-column:auto}
+    .links{display:none;position:absolute;top:60px;left:0;right:0;flex-direction:column;background:var(--bg2);padding:18px 24px;border-bottom:1px solid var(--line)}
+    .links.open{display:flex}
+    .menu-btn{display:block}
+    .hero{padding:70px 0 60px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo">rayen<span>.</span>chaibi</a>
+    <button class="menu-btn" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#journey">Journey</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap" id="top">
+  <div class="tag mono">// hello, world — I'm</div>
+  <h1>Rayen Chaibi.<br><span class="grad">I build things that move.</span></h1>
+  <p>Computer Systems Engineering student at MEDTECH in Tunis, specializing in embedded systems and robotics. I work close to the hardware: microcontrollers, control loops, sensors, and the networks that connect them.</p>
+  <div class="btns">
+    <a href="#projects" class="btn primary">See my projects</a>
+    <a href="mailto:rayen.chaibi@medtech.tn" class="btn">Get in touch</a>
+    <!-- Put your CV PDF next to index.html and uncomment: -->
+    <!-- <a href="Rayen_Chaibi_CV.pdf" class="btn" download>Download CV</a> -->
+  </div>
+  <div class="status"><span class="dot"></span>Open to internships in embedded systems, IoT &amp; robotics</div>
+</header>
+
+<main>
+<section id="about" class="wrap reveal">
+  <div class="head"><span class="num mono">01.</span><h2>About me</h2></div>
+  <div class="about">
+    <div>
+      <p>I'm an engineering student at <strong>MEDTECH (Mediterranean Institute of Technology)</strong> with a maths background and a strong pull toward hardware. I like the point where code meets the physical world: tuning a PID loop until the robot stops wobbling, or tracking down a wiring fault with a multimeter.</p>
+      <p>My coursework covers <strong>feedback control, advanced digital systems, digital signal processing</strong> and <strong>computer networks</strong>. Last summer I joined the <strong>Computer Vision team at the Military Research Center</strong>, where I worked with vision-language models.</p>
+      <p>Outside class, I take part in hackathons and engineering challenges.</p>
+    </div>
+    <ul class="facts card">
+      <li><span>Based in</span><span>Tunis, Tunisia</span></li>
+      <li><span>School</span><span>MEDTECH</span></li>
+      <li><span>Focus</span><span>Embedded &amp; Robotics</span></li>
+      <li><span>Languages</span><span>AR · FR · EN · ES</span></li>
+      <li><span>Certified</span><span>ISC2 · C# (GoMyCode)</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="experience" class="wrap reveal">
+  <div class="head"><span class="num mono">02.</span><h2>Experience</h2></div>
+  <div class="card xp">
+    <div class="date mono">JUL — AUG 2026</div>
+    <div>
+      <h3>Computer Vision Intern</h3>
+      <div class="org">Military Research Center · El Aouina, Tunis</div>
+      <p>Integrated a vision-language model (Cosmos-Reason2-2B) into an imagery analysis pipeline for object detection and contextual scene analysis, as part of the Computer Vision team.</p>
+      <div class="chips"><span class="chip">Python</span><span class="chip">Computer Vision</span><span class="chip">VLMs</span><span class="chip">Deep Learning</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="wrap reveal">
+  <div class="head"><span class="num mono">03.</span><h2>Projects</h2></div>
+  <div class="grid">
+    <article class="card proj featured">
+      <div class="kind mono">Robotics · Control</div>
+      <h3>PID Line Follower Robot</h3>
+      <p>An Arduino Nano robot with a TB6612FNG motor driver and a five-channel TCRT5000 IR sensor array. I took the controller from simple threshold logic through P and PD to full PID with integral wind-up protection, using a weighted analog estimate of the line position. Along the way I calibrated sensor height and thresholds, and debugged motor wiring and upload issues.</p>
+      <div class="chips"><span class="chip">Arduino</span><span class="chip">C++</span><span class="chip">PID</span><span class="chip">TB6612FNG</span><span class="chip">IR sensors</span></div>
+      <span class="badge">★ Presented at MEDTECH Project Day</span>
+    </article>
+
+    <article class="card proj">
+      <div class="kind mono">IoT · Team challenge</div>
+      <h3>Flood Early-Warning System</h3>
+      <p>A stormwater-drain monitoring system for the TSYP14 NEXUS Technical Challenge. I worked on power and system integration: I wrote the maintenance plan and the comparison with existing systems, and reviewed the communication design.</p>
+      <div class="chips"><span class="chip">IoT</span><span class="chip">System integration</span><span class="chip">TSYP14</span></div>
+    </article>
+
+    <article class="card proj">
+      <div class="kind mono">AI · Hardware</div>
+      <h3>Smart Recycling Bin</h3>
+      <p>Real-time AI waste classification connected to hardware that sorts the waste automatically.</p>
+      <div class="chips"><span class="chip">AI</span><span class="chip">Embedded</span><span class="chip">Automation</span></div>
+      <span class="badge">★ Recognized at MEDTECH Project Day</span>
+    </article>
+
+    <article class="card proj">
+      <div class="kind mono">Networking</div>
+      <h3>Live Auction</h3>
+      <p>A real-time auction platform built on an HTTP server our team wrote by hand, with no web framework.</p>
+      <div class="chips"><span class="chip">HTTP</span><span class="chip">Sockets</span><span class="chip">Team</span></div>
+    </article>
+
+    <article class="card proj">
+      <div class="kind mono">Networking · Game</div>
+      <h3>Guess The Mess</h3>
+      <p>A multiplayer draw-and-guess game, demoed live across machines over Tailscale.</p>
+      <div class="chips"><span class="chip">Multiplayer</span><span class="chip">Tailscale</span><span class="chip">Team</span></div>
+    </article>
+
+    <article class="card proj">
+      <div class="kind mono">Networking · Rust</div>
+      <h3>QuizNet</h3>
+      <p>A multiplayer online quiz game written in Rust, with separate TCP and UDP versions.</p>
+      <div class="chips"><span class="chip">Rust</span><span class="chip">TCP</span><span class="chip">UDP</span></div>
+    </article>
+
+    <article class="card proj">
+      <div class="kind mono">Compilers</div>
+      <h3>MiniC Interpreter</h3>
+      <p>An interpreter for a subset of C, with a Flex lexer and a Bison parser.</p>
+      <div class="chips"><span class="chip">C</span><span class="chip">Flex</span><span class="chip">Bison</span></div>
+    </article>
+
+    <article class="card proj">
+      <div class="kind mono">Environment</div>
+      <h3>Liquid Tree</h3>
+      <p>An environmental system prototype. I did system modeling and implementation as part of a multidisciplinary team.</p>
+      <div class="chips"><span class="chip">Modeling</span><span class="chip">Prototype</span></div>
+    </article>
+
+    <article class="card proj">
+      <div class="kind mono">Security · Python</div>
+      <h3>Network Scanning Tool</h3>
+      <p>Finds active hosts on a local network, then scans them for open ports and running services.</p>
+      <div class="chips"><span class="chip">Python</span><span class="chip">TCP/IP</span><span class="chip">Port scanning</span></div>
+    </article>
+  </div>
+</section>
+
+<section id="skills" class="wrap reveal">
+  <div class="head"><span class="num mono">04.</span><h2>Skills</h2></div>
+  <div class="skills">
+    <div class="card"><h3>Embedded &amp; Hardware</h3><div class="chips"><span class="chip">Arduino</span><span class="chip">STM32</span><span class="chip">Raspberry Pi</span><span class="chip">GPIO / PWM</span><span class="chip">Motor drivers</span><span class="chip">Sensors</span></div></div>
+    <div class="card"><h3>Control &amp; Signals</h3><div class="chips"><span class="chip">PID</span><span class="chip">State feedback</span><span class="chip">Pole placement</span><span class="chip">Observers</span><span class="chip">ZOH discretization</span><span class="chip">DSP</span></div></div>
+    <div class="card"><h3>Programming</h3><div class="chips"><span class="chip">C</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">Rust</span><span class="chip">Java</span><span class="chip">C#</span></div></div>
+    <div class="card"><h3>Networking</h3><div class="chips"><span class="chip">TCP/IP</span><span class="chip">TCP &amp; UDP sockets</span><span class="chip">HTTP</span><span class="chip">Tailscale</span><span class="chip">Linux</span></div></div>
+    <div class="card"><h3>AI &amp; Vision</h3><div class="chips"><span class="chip">Computer vision</span><span class="chip">Vision-language models</span><span class="chip">Deep learning</span></div></div>
+    <div class="card"><h3>Tools</h3><div class="chips"><span class="chip">Git</span><span class="chip">Flex / Bison</span><span class="chip">Arduino IDE</span><span class="chip">Agile / Scrum</span></div></div>
+  </div>
+</section>
+
+<section id="journey" class="wrap reveal">
+  <div class="head"><span class="num mono">05.</span><h2>Journey</h2></div>
+  <div class="two">
+    <div class="card">
+      <h3 class="sub">Education</h3>
+      <ul class="tl">
+        <li><strong>Engineering Degree, Computer Systems Engineering</strong><span>MEDTECH · 2025 — Present</span></li>
+        <li><strong>Pre-Engineering Cycle</strong><span>MEDTECH · 2023 — 2025</span></li>
+        <li><strong>Bachelor's Degree in Mathematics</strong><span>2023</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 class="sub">Competitions &amp; Certifications</h3>
+      <ul class="tl">
+        <li><strong>ISS Project, MEDTECH: 3rd Place</strong><span>2024</span></li>
+        <li><strong>Tech Revive Hackathon: 4th Place</strong><span>Competed in two editions</span></li>
+        <li><strong>TSYP14 NEXUS Technical Challenge</strong><span>Team entry: flood early-warning system</span></li>
+        <li><strong>Xtreme Coding Hackathon</strong><span>Participant</span></li>
+        <li><strong>ISC2 Cybersecurity Certification</strong><span>2024</span></li>
+        <li><strong>C# Certification</strong><span>GoMyCode</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="wrap contact reveal">
+  <div class="tag mono">// 06. what's next</div>
+  <h2>Let's build something.</h2>
+  <p>I'm looking for internships in embedded systems, IoT and robotics. If you have a project where the code has to work with real hardware, I'd like to hear about it.</p>
+  <div class="btns" style="justify-content:center">
+    <a href="mailto:rayen.chaibi@medtech.tn" class="btn primary">rayen.chaibi@medtech.tn</a>
+    <!-- Check this is your current LinkedIn URL -->
+    <a href="https://www.linkedin.com/in/rayen-chaibi-19996a235/" target="_blank" rel="noopener" class="btn">LinkedIn</a>
+    <!-- Add your GitHub if you want: -->
+    <!-- <a href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener" class="btn">GitHub</a> -->
+  </div>
+</section>
+</main>
+
+<footer class="mono">© <span id="y"></span> Rayen Chaibi · Built by hand, hosted on Vercel</footer>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  // reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // highlight active nav link
+  const links = [...document.querySelectorAll('.links a')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+  addEventListener('scroll', () => {
+    const y = scrollY + 120;
+    secs.forEach((s, i) => links[i].classList.toggle('active', s.offsetTop <= y && s.offsetTop + s.offsetHeight > y));
+  });
+  // close mobile menu after click
+  links.forEach(a => a.addEventListener('click', () => document.querySelector('.links').classList.remove('open')));
+</script>
+</body>
+</html>
