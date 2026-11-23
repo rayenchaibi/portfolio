@@ -100,6 +100,14 @@
   .contact p{color:var(--muted);max-width:520px;margin:0 auto 30px}
   footer{border-top:1px solid var(--line);padding:24px 0;text-align:center;color:var(--muted);font-size:.82rem}
 
+
+  /* resume */
+  .resume-frame{width:100%;height:1100px;border:0;border-radius:10px;background:#fff;display:block}
+  .resume-img{display:none;width:100%;border-radius:10px;background:#fff}
+  .resume-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px}
+  .resume-bar p{color:var(--muted);font-size:.92rem}
+  @media (max-width:820px){.resume-frame{display:none}.resume-img{display:block}}
+
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
   .reveal.in{opacity:1;transform:none}
 
@@ -126,6 +134,7 @@
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
       <a href="#journey">Journey</a>
+      <a href="#resume">Resume</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -138,8 +147,7 @@
   <div class="btns">
     <a href="#projects" class="btn primary">See my projects</a>
     <a href="mailto:rayen.chaibi@medtech.tn" class="btn">Get in touch</a>
-    <!-- Put your CV PDF next to index.html and uncomment: -->
-    <!-- <a href="Rayen_Chaibi_CV.pdf" class="btn" download>Download CV</a> -->
+    <a href="#resume" class="btn">View my CV</a>
   </div>
   <div class="status"><span class="dot"></span>Open to internships in embedded systems, IoT &amp; robotics</div>
 </header>
@@ -283,12 +291,25 @@
   </div>
 </section>
 
+<section id="resume" class="wrap reveal">
+  <div class="head"><span class="num mono">06.</span><h2>Resume</h2></div>
+  <div class="card">
+    <div class="resume-bar">
+      <p>My full CV, all on one page.</p>
+      <a href="Rayen_Chaibi_CV.pdf" class="btn primary" download>Download PDF</a>
+    </div>
+    <iframe class="resume-frame" src="Rayen_Chaibi_CV.pdf#view=FitH&toolbar=0" title="Rayen Chaibi CV"></iframe>
+    <a href="Rayen_Chaibi_CV.pdf" target="_blank" rel="noopener"><img class="resume-img" src="cv-preview.png" alt="Rayen Chaibi CV" loading="lazy"></a>
+  </div>
+</section>
+
 <section id="contact" class="wrap contact reveal">
-  <div class="tag mono">// 06. what's next</div>
+  <div class="tag mono">// 07. what's next</div>
   <h2>Let's build something.</h2>
   <p>I'm looking for internships in embedded systems, IoT and robotics. If you have a project where the code has to work with real hardware, I'd like to hear about it.</p>
   <div class="btns" style="justify-content:center">
     <a href="mailto:rayen.chaibi@medtech.tn" class="btn primary">rayen.chaibi@medtech.tn</a>
+    <a href="Rayen_Chaibi_CV.pdf" class="btn" target="_blank" rel="noopener">CV (PDF)</a>
     <!-- Check this is your current LinkedIn URL -->
     <a href="https://www.linkedin.com/in/rayen-chaibi-19996a235/" target="_blank" rel="noopener" class="btn">LinkedIn</a>
     <!-- Add your GitHub if you want: -->
@@ -305,7 +326,7 @@
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   // highlight active nav link
-  const links = [...document.querySelectorAll('.links a')];
+  const links = [...document.querySelectorAll('.links a[href^="#"]')];
   const secs = links.map(a => document.querySelector(a.getAttribute('href')));
   addEventListener('scroll', () => {
     const y = scrollY + 120;
